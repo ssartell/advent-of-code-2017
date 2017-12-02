@@ -24,6 +24,6 @@ function run(day, part) {
 	console.log(answer);
 }
 
-run(1, 2);
+run(2, 2);
 
 process.exit();

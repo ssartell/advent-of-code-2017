@@ -1,6 +1,6 @@
 var R = require('ramda');
 
-var parseInput = R.pipe(R.trim, R.split(''), R.map(parseInt));
+var parseInput = R.map(parseInt);
 
 var matchesNextDigit = (x, i, list) => list[(i + 1) % list.length] == x;
 var filterWithIndex = R.curry(function*(f, list) {

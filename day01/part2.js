@@ -1,6 +1,6 @@
 var R = require('ramda');
 
-var parseInput = R.pipe(R.trim, R.split(''), R.map(parseInt));
+var parseInput = R.map(parseInt);
 
 var matchesHalfwayDigit = (x, i, list) => list[(i + list.length / 2) % list.length] == x;
 var filterWithIndex = R.curry(function*(f, list) {
