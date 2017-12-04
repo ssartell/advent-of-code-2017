@@ -19,9 +19,7 @@ var spiral = function*() {
 
     while (true) {
         var pos = getPos(i++);
-        var val = sumNeighbors(pos) || 1;
-        grid[pos] = val;
-        yield val;
+        yield grid[pos] = sumNeighbors(pos) || 1;
     }
 }
 
