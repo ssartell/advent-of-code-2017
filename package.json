@@ -18,6 +18,7 @@
     "node-stopwatch": "0.0.1",
     "ramda": "^0.25.0",
     "vector": "0.0.4",
-    "vectors": "^0.1.0"
+    "vectors": "^0.1.0",
+    "wu": "^2.1.0"
   }
 }
