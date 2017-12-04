@@ -13,16 +13,15 @@ var getPos = n => {
 }
 
 var spiral = function*() {
-    var i = 1;
+    var i = 0;
     var grid = {};
     var sumNeighbors = pos => R.sum(R.map(n => grid[add(pos, n)] || 0, neighbors));
 
     while (true) {
-        var pos = getPos(i);
+        var pos = getPos(i++);
         var val = sumNeighbors(pos) || 1;
         grid[pos] = val;
         yield val;
-        i++;
     }
 }
 
