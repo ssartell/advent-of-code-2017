@@ -26,8 +26,8 @@ var spiral = function*() {
     }
 }
 
-var nextLargest = n =>  R.find(x => x > n, wu(spiral()));
+var nextLargest = R.curry((list, n) =>  R.find(x => x > n, list));
 
-var solution = R.pipe(parseInt, nextLargest);
+var solution = R.pipe(parseInt, nextLargest(wu(spiral())));
 
 module.exports = solution;
