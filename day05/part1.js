@@ -6,13 +6,14 @@ var navigateMaze = maze => {
     var i = 0;
     var steps = 0;
 
-    while (true) {
-        if (i < 0 || i >= maze.length) return steps;
+    while (i >= 0 && i < maze.length) {
         var delta = maze[i];
         maze[i]++;
         i += delta;
         steps++;
     }
+
+    return steps;
 };
 
 var solution = R.pipe(parseInput, navigateMaze);
