@@ -15,11 +15,11 @@ var redistribute = mem => {
 };
 
 var hasSeenState = (states, mem) => {
-    var curr = R.join(',', mem);
-    if (states[curr]) {
+    var key = R.join(',', mem);
+    if (R.has(key, states)) {
         return true;
     } else {
-        states[curr] = true;
+        states[key] = true;
         return false;
     }
 };
