@@ -3,8 +3,8 @@ var R = require('ramda');
 var debug = x => {debugger; return x;}
 
 var lineRegex = /(\w*) \((\d*)\)(?: -> (.*))?/;
-var trySplit = x => x !== undefined ? R.split(', ', x) : x;
-var readLine = R.pipe(R.match(lineRegex), R.tail, R.adjust(parseInt, 1), R.adjust(trySplit, 2));
+var trySplit = x => x ? R.split(', ', x) : [];
+var readLine = R.pipe(R.match(lineRegex), R.tail, R.adjust(parseInt, 1), R.adjust(trySplit, 2), R.zipObj(['name', 'weight', 'children']));
 var parseInput = R.pipe(R.split('\n'), R.map(readLine));
 
 var getBottom = list => {

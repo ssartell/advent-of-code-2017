@@ -1,31 +1,44 @@
 var R = require('ramda');
 
+var debug = (x, y) => {debugger; return x;}
+
 var lineRegex = /(\w*) \((\d*)\)(?: -> (.*))?/;
-var trySplit = x => x !== undefined ? R.split(', ', x) : x;
-var readLine = R.pipe(R.match(lineRegex), R.tail, R.adjust(parseInt, 1), R.adjust(trySplit, 2));
-var parseInput = R.pipe(R.split('\n'), R.map(readLine));
+var trySplit = x => x ? R.split(', ', x) : [];
+var readLine = R.pipe(R.match(lineRegex), R.tail, R.zipObj(['name', 'weight', 'children']), R.evolve({ weight: parseInt, children: trySplit }));
+var asLookup = R.chain(R.zipObj, R.map(R.prop('name')));
+var parseInput = R.pipe(R.split('\n'), R.map(readLine), asLookup);
 
-var getNode = R.curry((list, name) => R.find(x => x[0] === name, list));
-
-var getWeights = R.curry((list, node) => {
-    if (node[2] === undefined) return node[1];
-    var children = R.map(getNode(list), node[2]);
-    var weights = R.map(getWeights(list), children);
-    if (R.uniq(weights).length > 1) {
-        debugger;
-        // this ths the part where I'm trash and just copied the value from the watch variables
-    }
-    return R.sum(weights) + node[1];
+var getWeight = R.memoizeWith(R.prop('name'), node => {
+    if (R.isEmpty(node.children)) return node.weight;
+    var weights = R.map(getWeight, node.children);
+    return R.sum(weights) + node.weight;
 });
 
-var findImbalance = list => {
-    var programs = R.map(R.head, list);
-    var children = R.flatten(R.map(x => x[2], list));
-    var rootName = R.without(children, programs)[0];
+var toTree = (programs) => {
+    var allPrograms = R.keys(programs);
+    var children = R.flatten(R.pluck('children', R.values(programs)));
+    var rootName = R.without(children, allPrograms)[0];
+    R.forEach(x => x.children = R.map(y => programs[y], x.children), R.values(programs));
+    return programs[rootName];
+};
 
-    var root = getNode(list, rootName);
-    return getWeights(list, root);
+var rebalance = node => {
+    if (R.isEmpty(node.children)) return 0;
+
+    var childrenBalance = R.map(rebalance, node.children);
+    var max = R.reduce(R.max, -Infinity, childrenBalance);
+    if (max > 0) return max;
+
+    var weightSets = R.groupBy(getWeight, node.children);
+    var sortedSets = R.sortBy(x => x.length, R.values(weightSets));
+    if (sortedSets.length === 1) return 0;
+    return sortedSets[0][0].weight - (getWeight(sortedSets[0][0]) - getWeight(sortedSets[1][0]));   
 }
+
+var findImbalance = programs => {
+    var root = toTree(programs);
+    return rebalance(root);
+};
 
 var solution = R.pipe(parseInput, findImbalance);
 
