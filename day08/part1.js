@@ -17,8 +17,8 @@ var ops = {
 var run = insts => {
     var regs = {};
     for(var i of insts) {
-        if (!R.has(i.reg1, regs)) regs[i.reg1] = 0;
-        if (!R.has(i.reg2, regs)) regs[i.reg2] = 0;
+        regs[i.reg1] = regs[i.reg1] || 0;
+        regs[i.reg2] = regs[i.reg2] || 0;
         if (ops[i.cond](regs[i.reg2], i.val)) 
             regs[i.reg1] = ops[i.op](regs[i.reg1], i.by);
     }
