@@ -1,9 +1,6 @@
 var R = require('ramda');
 
-var debug = x => {debugger; return x;};
-
-var lineRegex = /(\w*) (\w*) (-?\d*) if (\w*) (\S*) (-?\d*)/;
-var readLine = R.pipe(R.match(lineRegex), R.tail, R.zipObj(['reg1', 'op', 'by', 'reg2', 'cond', 'val']), R.evolve({by: parseInt, val: parseInt}));
+var readLine = R.pipe(R.split(' '), R.zipObj(['reg1', 'op', 'by', 'if', 'reg2', 'cond', 'val']), R.evolve({by: parseInt, val: parseInt}));
 var parseInput = R.pipe(R.split('\n'), R.map(readLine));
 
 var ops = {
