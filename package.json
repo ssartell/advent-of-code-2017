@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "node tests.js"
+    "test": "mocha"
   },
   "author": "",
   "license": "ISC",
@@ -20,5 +20,8 @@
     "vector": "0.0.4",
     "vectors": "^0.1.0",
     "wu": "^2.1.0"
+  },
+  "devDependencies": {
+    "mocha": "^4.0.1"
   }
 }
