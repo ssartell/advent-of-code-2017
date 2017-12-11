@@ -22,15 +22,12 @@ var step = (pos, dir) => {
         pos.y++;
         pos.z--;
     }
-
-    var newDist = dist({x:0, y:0, z:0}, pos);
-    pos.max = R.max(pos.max, newDist);
-
+    
     return pos;
 }
 
 var dist = R.curry((a, b) => (Math.abs(a.x - b.x) + Math.abs(a.y - b.y) + Math.abs(a.z - b.z)) / 2);
 
-var solution = R.pipe(parseInput, R.reduce(step, {x:0, y:0, z:0, max: 0}), R.prop('max'));
+var solution = R.pipe(parseInput, R.reduce(step, {x:0, y:0, z:0}), dist({x:0, y:0, z:0}));
 
 module.exports = solution;
