@@ -4,26 +4,18 @@ var parseInput = R.pipe(R.trim, R.split(','));
 
 var step = (pos, dir) => {
     if (dir === 'n') {
-        pos.x++;
-        pos.z--;
+        return {x: pos.x + 1, y: pos.y, z: pos.z - 1};
     } else if (dir === 's') {
-        pos.x--;
-        pos.z++;
+        return {x: pos.x - 1, y: pos.y, z: pos.z + 1};
     } else if (dir === 'ne') {
-        pos.x++;
-        pos.y--;
+        return {x: pos.x + 1, y: pos.y - 1, z: pos.z};
     } else if (dir === 'sw') {
-        pos.x--;
-        pos.y++;
+        return {x: pos.x - 1, y: pos.y + 1, z: pos.z};
     } else if (dir === 'se') {
-        pos.y--;
-        pos.z++;
+        return {x: pos.x, y: pos.y - 1, z: pos.z + 1};
     } else if (dir === 'nw') {
-        pos.y++;
-        pos.z--;
+        return {x: pos.x, y: pos.y + 1, z: pos.z - 1};
     }
-    
-    return pos;
 }
 
 var dist = R.curry((a, b) => (Math.abs(a.x - b.x) + Math.abs(a.y - b.y) + Math.abs(a.z - b.z)) / 2);
