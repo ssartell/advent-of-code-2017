@@ -8,13 +8,10 @@ var reverse = (list, pos, length) => {
 
     while (a != b && a != R.mathMod(b + 1, list.length)) {
         var temp = list[a];
-        if (temp === undefined) debugger;
         list[a] = list[b];
         list[b] = temp;
         a = R.mathMod(a + 1, list.length);
         b = R.mathMod(b - 1, list.length);
-        if (a === list.length || a < 0) debugger;
-        if (b === list.length || b < 0) debugger;
     }
 };
 
