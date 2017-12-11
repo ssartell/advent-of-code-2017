@@ -29,7 +29,6 @@ var run64 = seq => {
     for(var i = 0; i < 64; i++) {
         a = R.reduce(run, a, seq);
     }
-
     return a.list;
 };
 
