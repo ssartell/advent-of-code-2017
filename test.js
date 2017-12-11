@@ -39,6 +39,31 @@ describe('day 8', () => {
     });
 });
 
+describe('day 11', () => {
+    describe('part 1', () => {
+        var solution = require('./day11/part1');
+        it('ne,ne,ne', () => {
+            assert.equal(solution('ne,ne,ne'), 3);
+        });
+        it('ne,ne,sw,sw', () => {
+            assert.equal(solution('ne,ne,sw,sw'), 0);
+        });
+        it('ne,ne,s,s', () => {
+            assert.equal(solution('ne,ne,s,s'), 2);
+        });
+        it('se,sw,se,sw,sw', () => {
+            assert.equal(solution('se,sw,se,sw,sw'), 3);
+        });
+    });
+    
+    // describe('part 2', () => {
+    //     var solution = require('./day08/part2');
+    //     it('test', () => {
+    //         assert.equal(solution(input), 10);
+    //     });
+    // });
+});
+
 function pad(digit, width, char) {
     char = char || '0';
     digit = digit + '';
