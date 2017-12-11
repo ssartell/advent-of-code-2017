@@ -2,24 +2,19 @@ var R = require('ramda');
 
 var parseInput = R.pipe(R.trim, R.split(','));
 
-var step = (pos, dir) => {
-    if (dir === 'n') {
-        return {x: pos.x + 1, y: pos.y, z: pos.z - 1};
-    } else if (dir === 's') {
-        return {x: pos.x - 1, y: pos.y, z: pos.z + 1};
-    } else if (dir === 'ne') {
-        return {x: pos.x + 1, y: pos.y - 1, z: pos.z};
-    } else if (dir === 'sw') {
-        return {x: pos.x - 1, y: pos.y + 1, z: pos.z};
-    } else if (dir === 'se') {
-        return {x: pos.x, y: pos.y - 1, z: pos.z + 1};
-    } else if (dir === 'nw') {
-        return {x: pos.x, y: pos.y + 1, z: pos.z - 1};
-    }
-}
+var dirs = {
+    n: [1, 0, -1],
+    s: [-1, 0, 1],
+    ne: [1, -1, 0],
+    sw: [-1, 1, 0],
+    nw: [0, 1, -1],
+    se: [0, -1, 1],
+};
 
-var dist = R.curry((a, b) => (Math.abs(a.x - b.x) + Math.abs(a.y - b.y) + Math.abs(a.z - b.z)) / 2);
+var add = (a, b) => R.map(R.sum, R.zip(a, b));
+var dist = R.curry((a, b) => (Math.abs(a[0] - b[0]) + Math.abs(a[1] - b[1]) + Math.abs(a[2] - b[2])) / 2);
+var step = (pos, dir) => add(pos, dirs[dir]);
 
-var solution = R.pipe(parseInput, R.reduce(step, {x:0, y:0, z:0}), dist({x:0, y:0, z:0}));
+var solution = R.pipe(parseInput, R.reduce(step, [0, 0, 0]), dist([0, 0, 0]));
 
 module.exports = solution;

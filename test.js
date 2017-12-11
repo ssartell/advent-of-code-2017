@@ -56,9 +56,3 @@ describe('day 11', function() {
         });
     });
 });
-
-function pad(digit, width, char) {
-    char = char || '0';
-    digit = digit + '';
-    return digit.length >= width ? digit : new Array(width - digit.length + 1).join(char) + digit;
-}
