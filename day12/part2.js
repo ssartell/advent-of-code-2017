@@ -1,7 +1,5 @@
 var R = require('ramda');
 
-var debug = x => {debugger; return x;};
-
 var readLine = R.pipe(R.trim, R.split(' <-> '), R.adjust(R.split(', '), 1))
 var parseInput = R.pipe(R.trim, R.split('\n'), R.map(readLine), R.transpose, R.apply(R.zipObj));
 
