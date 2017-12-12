@@ -12,7 +12,7 @@ var dirs = {
 };
 
 var add = (a, b) => R.map(R.sum, R.zip(a, b));
-var dist = a => (Math.abs(a[0]) + Math.abs(a[1]) + Math.abs(a[2])) / 2;
+var dist = R.pipe(R.map(Math.abs), R.sum, x => x / 2);
 var step = (a, dir) => {
     var newPos = add(a.pos, dirs[dir]);
     return {
