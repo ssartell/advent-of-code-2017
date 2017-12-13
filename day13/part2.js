@@ -6,9 +6,9 @@ var readLine = R.pipe(R.trim, R.split(': '), R.map(parseInt), R.apply(pos));
 var parseInput = R.pipe(R.trim, R.split('\n'), R.map(readLine));
 
 var run = fs => {
-    var i = 0;
-    while (R.any(x => x(i) === 0, fs)) i++;
-    return i;
+    var t = 0;
+    while (R.any(f => f(t) === 0, fs)) t++;
+    return t;
 }
 
 var solution = R.pipe(parseInput, run);
