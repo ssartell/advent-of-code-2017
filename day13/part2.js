@@ -1,14 +1,15 @@
 var R = require('ramda');
 
-var pos = R.curry((depth, range, t) => Math.abs((range - 1) - ((depth + t + (range - 1)) % ((range - 1) * 2))));
-
-var readLine = R.pipe(R.trim, R.split(': '), R.map(parseInt), R.apply(pos));
+var readLine = R.pipe(R.trim, R.split(': '), R.map(parseInt), R.zipObj(['depth', 'range']));
 var parseInput = R.pipe(R.trim, R.split('\n'), R.map(readLine));
 
-var run = fs => {
-    var i = 0;
-    while (R.any(x => x(i) === 0, fs)) i++;
-    return i;
+var pos = (depth, range, t) => (t + depth) % (range * 2 - 2);
+
+var run = scanners => {
+    var t = 0;
+    while (R.any(s => pos(s.depth, s.range, t) === 0, scanners))
+        t++;
+    return t;
 }
 
 var solution = R.pipe(parseInput, run);
