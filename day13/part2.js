@@ -10,7 +10,7 @@ var run = scanners => {
     while (R.any(s => pos(s.depth, s.range, t) === 0, scanners))
         t++;
     return t;
-}
+};
 
 var solution = R.pipe(parseInput, run);
 
