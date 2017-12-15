@@ -4,7 +4,7 @@ var readLine = R.pipe(R.split(' '), R.last, parseInt);
 var parseInput = R.pipe(R.trim, R.split('\n'), R.map(readLine));
 
 var getVal = (lastVal, gen) => lastVal * gen.factor % gen.div;
-var getBits = val => (65535 & val).toString(2);
+var getBits = val => 65535 & val;
 
 var run = starters => {
     var valA = starters[0];
