@@ -3,20 +3,18 @@ var R = require('ramda');
 var readLine = R.pipe(R.split(' '), R.last, parseInt);
 var parseInput = R.pipe(R.trim, R.split('\n'), R.map(readLine));
 
-var getVal = (lastVal, gen) => lastVal * gen.factor % gen.div;
+var getVal = (lastVal, gen) => lastVal * gen.factor % 2147483647;
 var getBits = val => 65535 & val;
 
 var run = starters => {
     var valA = starters[0];
     var genA = {
-        factor: 16807,
-        div: 2147483647
+        factor: 16807
     };
 
     var valB = starters[1];
     var genB = {
-        factor: 48271,
-        div: 2147483647
+        factor: 48271
     };
 
     var count = 0;
