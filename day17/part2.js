@@ -1,26 +1,16 @@
 var R = require('ramda');
-var Queue = require('mnemonist/queue');
-
-var parseInput = R.pipe(R.trim, parseInt);
 
 var run = step => {
-    var queue = Queue.from([0]);
-    for(var i = 1; i <= 50000000; i++) {
-        for(var j = 0; j < step; j++) {
-            queue.enqueue(queue.dequeue());
-        }
-        queue.enqueue(i);
+    var pos = 0; 
+    var result = 0;
+    for (var i = 1; i <= 50000000; i++)
+    {
+        pos = (pos + step + 1) % i;
+        if (pos === 0) result = i;
     }
-
-    while(queue.peek() !== 0) {
-        queue.enqueue(queue.dequeue());
-    }
-
-    queue.dequeue();
-
-    return queue.dequeue();
+    return result;
 }
 
-var solution = R.pipe(parseInput, run);
+var solution = R.pipe(parseInt, run);
 
 module.exports = solution;
