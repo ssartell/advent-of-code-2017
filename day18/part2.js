@@ -30,10 +30,10 @@ var createProg = (insts, outQueue, inQueue, id) => {
         while(i < insts.length) {
             var inst = insts[i];
             if (inst.op === 'rcv' && inQueue.size === 0)
-                return -sent;
+                return {blocked: true, sent: sent};
             var val = ops[inst.op](inst.x, inst.y);
         }
-        return sent;
+        return {blocked: false, sent: sent};
     };
 };
 
@@ -46,9 +46,9 @@ var run = insts => {
     do {
         var resultA = progA();
         var resultB = progB();
-    } while(resultA < 0 && resultB < 0 && (a.size !== 0 || b.size !== 0));
+    } while(resultA.blocked && resultB.blocked && (a.size !== 0 || b.size !== 0));
 
-    return Math.abs(resultB);
+    return resultB.sent;
 }
 
 var solution = R.pipe(parseInput, run);
