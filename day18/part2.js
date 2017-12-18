@@ -46,7 +46,7 @@ var run = insts => {
     do {
         var resultA = progA();
         var resultB = progB();
-    } while(resultA.blocked && resultB.blocked && (a.size !== 0 || b.size !== 0));
+    } while((resultA.blocked || resultB.blocked) && (a.size !== 0 || b.size !== 0));
 
     return resultB.sent;
 }
