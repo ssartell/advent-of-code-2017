@@ -31,18 +31,22 @@ var run = blocks => {
     // var getFunky = (a, b) => false;
 
     // from last
-    var start = {x: 63, y: 63, fromRegion: false};
-    var getFunky = (a, b) => a.i > b.i;
+    // var start = {x: 63, y: 63, fromRegion: false};
+    // var getFunky = (a, b) => a.i > b.i;
 
     // from first
     // var start = {x: 63, y: 63, fromRegion: false};
     // var getFunky = (a, b) => a.i < b.i;
+
+    // from first
+    var start = {x: 0, y: 0, fromRegion: false};
+    var getFunky = (a, b) => a.x + a.y > b.x + b.y;
     
     var queue = new M.MinHeap(R.comparator((a, b) => {
         if (a.fromRegion && blocks[a.x][a.y] === 1) return true;
         if (b.fromRegion && blocks[b.x][b.y] === 1) return false;
-        // if (blocks[a.x][a.y] > blocks[b.x][b.y]) return true;
-        // if (blocks[a.x][a.y] < blocks[b.x][b.y]) return false;
+        if (blocks[a.x][a.y] > blocks[b.x][b.y]) return true;
+        if (blocks[a.x][a.y] < blocks[b.x][b.y]) return false;
         return getFunky(a, b);
     }));
     queue.push(start);
