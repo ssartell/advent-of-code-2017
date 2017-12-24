@@ -15,16 +15,16 @@ module.exports = function() {
         c = b + 17000;
     }
     do {
-        f = true;
+        f = 1;
         d = 2;
         do {
             if (b / d % 1 === 0) {
-                f = false;
+                f = 0;
                 break;
             }
             d++;
         } while (d !== b)
-        if (!f) {
+        if (f === 0) {
             h = h + 1;
         }
         g = b - c;
